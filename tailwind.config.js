@@ -13,8 +13,8 @@ export default {
     },
     extend: {
       colors: {
-        xGreen: '426B1F',
-        xWhite: 'FAFAF5',
+        'xGreen': '426B1F',
+        'xWhite': 'FAFAF5',
       }
     },
   },
