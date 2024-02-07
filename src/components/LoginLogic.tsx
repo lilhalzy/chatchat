@@ -5,7 +5,7 @@ import Button from './Button';
 const LoginLogic = () => {
   return (
     <div className='w-full md:w-[450px]'>
-      <h1 className='text-black text-center font-bold text-4xl mb-8 select-none'>
+      <h1 className='text-black text-center text-5xl mb-8 select-none font-title'>
         Login
       </h1>
       <div className='flex flex-col gap-3 bg-xWhite px-10 py-10 min-h-[150px] md:text-xl rounded-xl drop-shadow-md'>

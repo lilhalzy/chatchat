@@ -19,7 +19,11 @@ const Button = ({
   return (
     <>
       <button
-        className={`py-2 px-9 flex justify-center rounded-xl gap-3 hover:${ secondary ? 'text-xWhite' : 'text-xWhite'} hover:${secondary ? 'bg-xGreen' : 'bg-xGreen'} transition-all hover:drop-shadow-md ${className} ${loading && 'cursor-wait'}`}
+        className={`py-2 px-9 flex justify-center items-center rounded-xl gap-3 border-transparent border-2 ${
+          !secondary ? 'hover:border-xGreen' : 'bg-xGreen text-xWhite'
+        } ${
+          secondary ? 'hover:bg-lime-600' : ''
+        } text-xGreen cursor-pointer ${className}`}
         onClick={onClick}
         disabled={loading}
       >
