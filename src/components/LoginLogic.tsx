@@ -4,25 +4,56 @@ import Input from './Input';
 
 const LoginLogic = () => {
   const [login, setLogin] = useState(true);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  // const handleSignUp = () => {
+  //   const data = { username, password, confirmPassword };
+  //   console.log(data);
+  // };
+  // const handleSignIn = () => {
+  //   const data = { username, password };
+  //   console.log(data);
+  // };
 
   return (
-    <div className='w-full md:w-[450px]'>
+    <div className='w-full md:w-[500px]'>
       <h1 className='text-black text-center text-5xl mb-8 select-none font-title'>
         {login ? 'Login' : 'Register'}
       </h1>
       <div className='flex flex-col gap-3 bg-xWhite px-10 py-10 min-h-[150px] md:text-xl rounded-xl drop-shadow-md'>
-        <Input name='username' type='text' />
-        <Input name='password' type='password' />
-        {!login && <Input name='confirm-password' type='password' />}
+        <Input
+          name='username'
+          type='username'
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <Input
+          name='password'
+          type='password'
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        {!login && (
+          <Input
+            name='confirm-password'
+            type='password'
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+        )}
 
         {login ? (
           <>
-            <Button />
+            {/* <Button onClick={handleSignIn} /> */}
+            <Button  />
             <Button onClick={() => setLogin(false)} text='Register' secondary />
           </>
         ) : (
           <>
-            <Button text='Register'/>
+            {/* <Button text='Register' onClick={handleSignUp} /> */}
+            <Button text='Register' />
             <Button onClick={() => setLogin(true)} text='Login' secondary />
           </>
         )}
