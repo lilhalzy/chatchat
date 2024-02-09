@@ -1,13 +1,13 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-
+import Header from "../components/Header";
 
 type Props = {}
 
 const Layout = ({}:Props) => {
     return(
     <div>
-        <h1>Header</h1>
+        <Header />
         <Outlet />
     </div>
     )
