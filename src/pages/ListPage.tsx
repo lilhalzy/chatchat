@@ -1,8 +1,10 @@
 import React from "react";
 
-const ListPage = () => {
-    return(
+type Props = {}
 
+const ListPage = ({}:Props) => {
+    return(
+        <div>ListPage</div>
     )
 }
 
