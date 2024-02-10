@@ -8,15 +8,6 @@ const LoginLogic = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  // const handleSignUp = () => {
-  //   const data = { username, password, confirmPassword };
-  //   console.log(data);
-  // };
-  // const handleSignIn = () => {
-  //   const data = { username, password };
-  //   console.log(data);
-  // };
-
   return (
     <div className='w-full md:w-[500px]'>
       <h1 className='text-black text-center text-5xl mb-8 select-none font-title'>
@@ -46,13 +37,11 @@ const LoginLogic = () => {
 
         {login ? (
           <>
-            {/* <Button onClick={handleSignIn} /> */}
             <Button  />
             <Button onClick={() => setLogin(false)} text='Register' secondary />
           </>
         ) : (
           <>
-            {/* <Button text='Register' onClick={handleSignUp} /> */}
             <Button text='Register' />
             <Button onClick={() => setLogin(true)} text='Login' secondary />
           </>
