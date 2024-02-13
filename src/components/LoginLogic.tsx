@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Button from './Button';
 import Input from './Input';
 import { signIn, signUp } from '../Backend/Queries';
+import { Link, useNavigate } from 'react-router-dom';
 
 const LoginLogic = () => {
   const [login, setLogin] = useState(true);
@@ -10,21 +11,23 @@ const LoginLogic = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [signUpLoading,setSignUpLoading] = useState(false)
   const [signInLoading,setSignInLoading] = useState(false)
+  const goTo = useNavigate()
 
   const handleSignUp = () => {
     const data = {email, password, confirmPassword}
-    signUp(data, setSignUpLoading, reset)
+    signUp(data, setSignUpLoading, reset, goTo)
   }
   
   const handleSignIn = () => {
     const data = {email, password}
-    signIn(data, setSignInLoading, reset)
+    signIn(data, setSignInLoading, reset, goTo) 
   }
 
   const reset = () => {
     setEmail('')
     setPassword('')
     setConfirmPassword('')
+
   }
 
   return (
