@@ -1,22 +1,30 @@
 import React, { useState } from 'react';
 import Button from './Button';
 import Input from './Input';
-import { signUp } from '../Backend/Queries';
+import { signIn, signUp } from '../Backend/Queries';
 
 const LoginLogic = () => {
   const [login, setLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [signUpLoading,setSignUpLoading] = useState(false)
+  const [signInLoading,setSignInLoading] = useState(false)
 
   const handleSignUp = () => {
     const data = {email, password, confirmPassword}
-    signUp(data)
+    signUp(data, setSignUpLoading, reset)
   }
   
   const handleSignIn = () => {
-    const data = {email, password, confirmPassword}
-    signUp(data)
+    const data = {email, password}
+    signIn(data, setSignInLoading, reset)
+  }
+
+  const reset = () => {
+    setEmail('')
+    setPassword('')
+    setConfirmPassword('')
   }
 
   return (
@@ -48,12 +56,12 @@ const LoginLogic = () => {
 
         {login ? (
           <>
-            <Button onClick={handleSignIn}/>
+            <Button onClick={handleSignIn} loading={signInLoading}/>
             <Button onClick={() => setLogin(false)} text='Register' secondary />
           </>
         ) : (
           <>
-            <Button text='Register' onClick={handleSignUp}/>
+            <Button text='Register' onClick={handleSignUp} loading={signUpLoading}/>
             <Button onClick={() => setLogin(true)} text='Login' secondary />
           </>
         )}
