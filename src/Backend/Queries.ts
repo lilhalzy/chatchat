@@ -26,6 +26,8 @@ export const signUp = (
   const { email, password, confirmPassword } = data;
   // loading TRUE
   setLoading(true);
+  // loading TRUE
+  setLoading(true);
   if (email && password) {
     if (password === confirmPassword) {
       createUserWithEmailAndPassword(auth, email, password)

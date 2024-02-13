@@ -27,7 +27,6 @@ const LoginLogic = () => {
     setEmail('')
     setPassword('')
     setConfirmPassword('')
-
   }
 
   return (
