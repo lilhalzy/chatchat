@@ -55,8 +55,8 @@ export const signUp = (
           catchErr(err);
           setLoading(false);
         });
-    } else toastWarn(`Password must match`);
-  } else toastErr(`Don't leave it blank, silly`);
+    } else toastWarn(`Password must match`, setLoading);
+  } else toastErr(`Don't leave it blank, silly`, setLoading);
 };
 
 export const signIn = (
