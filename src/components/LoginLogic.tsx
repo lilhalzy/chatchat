@@ -1,33 +1,47 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { signIn, signUp } from '../Backend/Queries';
+import { AppDispatch } from '../Redux/store';
+import { authDataType } from '../Types';
 import Button from './Button';
 import Input from './Input';
-import { signIn, signUp } from '../Backend/Queries';
-import { Link, useNavigate } from 'react-router-dom';
 
 const LoginLogic = () => {
   const [login, setLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [signUpLoading,setSignUpLoading] = useState(false)
-  const [signInLoading,setSignInLoading] = useState(false)
-  const goTo = useNavigate()
+  const [signUpLoading, setSignUpLoading] = useState(false);
+  const [signInLoading, setSignInLoading] = useState(false);
+  const goTo = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
 
   const handleSignUp = () => {
-    const data = {email, password, confirmPassword}
-    signUp(data, setSignUpLoading, reset, goTo)
-  }
-  
+    const data = { email, password, confirmPassword };
+    signUp(data, setSignUpLoading, reset, goTo, dispatch);
+    auth(data, signUp, setSignUpLoading)
+  };
+
   const handleSignIn = () => {
-    const data = {email, password}
-    signIn(data, setSignInLoading, reset, goTo) 
-  }
+    const data = { email, password };
+    signIn(data, setSignInLoading, reset, goTo, dispatch);
+    auth(data, signUp, setSignInLoading)
+  };
+
+  const auth = (
+    data: authDataType,
+    func: unknown,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  ) => {
+    func(data, setLoading, reset, goTo, dispatch);
+  };
 
   const reset = () => {
-    setEmail('')
-    setPassword('')
-    setConfirmPassword('')
-  }
+    setEmail('');
+    setPassword('');
+    setConfirmPassword('');
+  };
 
   return (
     <div className='w-full md:w-[500px]'>
@@ -58,12 +72,16 @@ const LoginLogic = () => {
 
         {login ? (
           <>
-            <Button onClick={handleSignIn} loading={signInLoading}/>
+            <Button onClick={handleSignIn} loading={signInLoading} />
             <Button onClick={() => setLogin(false)} text='Register' secondary />
           </>
         ) : (
           <>
-            <Button text='Register' onClick={handleSignUp} loading={signUpLoading}/>
+            <Button
+              text='Register'
+              onClick={handleSignUp}
+              loading={signUpLoading}
+            />
             <Button onClick={() => setLogin(true)} text='Login' secondary />
           </>
         )}

@@ -5,7 +5,8 @@ import {
 } from 'firebase/auth';
 import { NavigateFunction } from 'react-router';
 import { toast } from 'react-toastify';
-import { defaultUser } from '../Redux/userSlice';
+import { AppDispatch } from '../Redux/store';
+import { defaultUser, setUser } from '../Redux/userSlice';
 import { authDataType, setLoadingType, userType } from '../Types';
 import catchErr from '../utils/catchErr';
 import { toastErr, toastWarn } from '../utils/toast';
@@ -21,7 +22,8 @@ export const signUp = (
   data: authDataType,
   setLoading: setLoadingType,
   reset: () => void,
-  goTo: NavigateFunction
+  goTo: NavigateFunction,
+  dispatch: AppDispatch
 ) => {
   const { email, password, confirmPassword } = data;
   // loading TRUE
@@ -31,9 +33,9 @@ export const signUp = (
   if (email && password) {
     if (password === confirmPassword) {
       createUserWithEmailAndPassword(auth, email, password)
-        .then(({ user }) => {
+        .then(async ({ user }) => {
           // TODO: create user image
-          const userInfo = addUserToCollection(
+          const userInfo = await addUserToCollection(
             user.uid,
             user.email,
             user.email || '',
@@ -41,7 +43,8 @@ export const signUp = (
             'imgLink'
           );
 
-          // set user info in store and localstorage
+          // set user info in store
+          dispatch(setUser(userInfo));
 
           console.log(user);
           setLoading(false);
@@ -60,18 +63,21 @@ export const signIn = (
   data: authDataType,
   setLoading: setLoadingType,
   reset: () => void,
-  goTo: NavigateFunction
+  goTo: NavigateFunction,
+  dispatch: AppDispatch
 ) => {
   const { email, password } = data; // destructure
   // loading TRUE
   setLoading(true);
   signInWithEmailAndPassword(auth, email, password)
-    .then(({ user }) => {
+    .then(async ({ user }) => {
       // TODO: update user isOnline is true
 
-      const userInfo = getUserInfo(user.uid)
+      const userInfo = await getUserInfo(user.uid);
 
-      // set user in store and localstorage
+      // set user in store
+      dispatch(setUser(userInfo));
+
       console.log(user);
       setLoading(false);
       reset();
@@ -89,6 +95,7 @@ const addUserToCollection = async (
   username: string,
   img: string
 ) => {
+  // create user with userID
   await setDoc(doc(db, id, usersCollection), {
     isOnline: true,
     img,
