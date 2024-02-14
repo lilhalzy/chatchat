@@ -9,6 +9,7 @@ export const defaultUser:userType = {
     creationTime:'',
     img:'',
     lastSeen:'',
+    bio:'',
 }
 
 const initialState = {

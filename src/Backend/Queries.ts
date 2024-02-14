@@ -28,8 +28,7 @@ export const signUp = (
   const { email, password, confirmPassword } = data;
   // loading TRUE
   setLoading(true);
-  // loading TRUE
-  setLoading(true);
+
   if (email && password) {
     if (password === confirmPassword) {
       createUserWithEmailAndPassword(auth, email, password)
@@ -71,8 +70,6 @@ export const signIn = (
   setLoading(true);
   signInWithEmailAndPassword(auth, email, password)
     .then(async ({ user }) => {
-      // TODO: update user isOnline is true
-
       const userInfo = await getUserInfo(user.uid);
 
       // set user in store
@@ -102,6 +99,7 @@ const addUserToCollection = async (
     username,
     email,
     creationTime: serverTimestamp,
+    lastSeen: serverTimestamp,
     bio: `My name is ${username}. This is my lazy uhh bio`,
   });
 
@@ -127,7 +125,7 @@ const getUserInfo = async (id: string): Promise<userType> => {
       lastSeen,
     };
   } else {
-    toastErr('getUserInfo: user not found');
+    toastErr('getUserInfo: user not found', setLoading);
     return defaultUser;
   }
 };
