@@ -4,7 +4,6 @@ import {
   signInWithEmailAndPassword,
 } from 'firebase/auth';
 import { NavigateFunction } from 'react-router';
-import { toast } from 'react-toastify';
 import { AppDispatch } from '../Redux/store';
 import { defaultUser, setUser } from '../Redux/userSlice';
 import { authDataType, setLoadingType, userType } from '../Types';
@@ -125,7 +124,7 @@ const getUserInfo = async (id: string): Promise<userType> => {
       lastSeen,
     };
   } else {
-    toastErr('getUserInfo: user not found', setLoading);
+    toastErr('getUserInfo: user not found');
     return defaultUser;
   }
 };

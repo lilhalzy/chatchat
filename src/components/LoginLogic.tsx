@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { signIn, signUp } from '../Backend/Queries';
 import { AppDispatch } from '../Redux/store';
 import { authDataType } from '../Types';
@@ -19,14 +19,12 @@ const LoginLogic = () => {
 
   const handleSignUp = () => {
     const data = { email, password, confirmPassword };
-    signUp(data, setSignUpLoading, reset, goTo, dispatch);
     auth(data, signUp, setSignUpLoading)
   };
 
   const handleSignIn = () => {
     const data = { email, password };
-    signIn(data, setSignInLoading, reset, goTo, dispatch);
-    auth(data, signUp, setSignInLoading)
+    auth(data, signIn, setSignInLoading)
   };
 
   const auth = (
